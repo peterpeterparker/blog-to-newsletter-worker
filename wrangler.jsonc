@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blog-to-newsletter-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-13",
+  "observability": {
+    "enabled": true,
+  },
+  "upload_source_maps": true,
+  "compatibility_flags": ["nodejs_compat"],
+  /**
+   * Secrets (set via: wrangler secret put <NAME>)
+   * - TELEGRAM_BOT_TOKEN
+   * - TELEGRAM_SECRET
+   * - MAILCHIMP_API_KEY
+   */
+}
