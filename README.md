@@ -23,6 +23,9 @@ This repo is meant to be **forked**. Once you have your own copy, you can deploy
 
 The repo includes a GitHub Actions workflow that deploys automatically on push to `main`. You'll need a `CLOUDFLARE_API_TOKEN` secret in your repo — see the [Cloudflare docs](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/) for setup instructions.
 
+> [!TIP]
+> When creating the `CLOUDFLARE_API_TOKEN`, only **Workers Scripts: Write** and **Account Settings: Read** permissions are needed.
+
 ## Secrets
 
 > [!NOTE]
