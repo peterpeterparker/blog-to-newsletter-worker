@@ -8,10 +8,10 @@
     "start": "wrangler dev",
     "test": "vitest",
     "cf-typegen": "wrangler types",
-    "lint": "bunx oxlint",
-    "lint:fix": "bunx oxlint --fix",
-    "fmt": "bunx oxfmt",
-    "fmt:check": "bunx oxfmt --check"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "dependencies": {
     "zod": "^4.4.3"
