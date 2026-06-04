@@ -1,0 +1,14 @@
+[worker]
+port = 5988
+
+[[env]]
+key = "TELEGRAM_BOT_TOKEN"
+value = ""
+
+[[env]]
+key = "TELEGRAM_SECRET"
+value = ""
+
+[[env]]
+key = "MAILCHIMP_API_KEY"
+value = ""
