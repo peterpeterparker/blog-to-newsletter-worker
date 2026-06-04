@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import worker from "../src/index";
 import type { WorkerRequest } from "kyushu-types";
 
@@ -31,8 +31,15 @@ const makeCallbackQuery = (data: string) => ({
 });
 
 describe("Worker", () => {
+  beforeEach(() => {
+    vi.stubEnv("TELEGRAM_BOT_TOKEN", "test-bot-token");
+    vi.stubEnv("TELEGRAM_SECRET", "a".repeat(32));
+    vi.stubEnv("MAILCHIMP_API_KEY", "test-mailchimp-key-us21");
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
   });
 
   it("should return 405 for non-POST requests", async () => {
