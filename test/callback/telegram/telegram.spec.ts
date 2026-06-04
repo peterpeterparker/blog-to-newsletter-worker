@@ -11,12 +11,12 @@ const mockEnv: Env = {
 const secret = "a".repeat(32);
 const validPath = `/telegram/${secret}`;
 
-const makeRequest = (body: unknown, path = validPath) =>
-  new Request(`https://example.com${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+const makeRequest = (body: unknown, path = validPath) => ({
+  method: "POST" as const,
+  url: `https://example.com${path}`,
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(body),
+});
 
 const makeCallbackQuery = (data: string) => ({
   callback_query: {
@@ -61,7 +61,7 @@ describe("TelegramCallback", () => {
       const response = await TelegramCallback.create(mockEnv).handle({ url, request });
 
       expect(response.status).toBe(200);
-      expect(await response.text()).toBe("OK");
+      expect(response.body).toBe("OK");
     });
 
     it("should return 400 if callback data format is invalid", async () => {
