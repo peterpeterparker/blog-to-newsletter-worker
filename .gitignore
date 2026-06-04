@@ -177,3 +177,5 @@ log.txt
 .idea/
 .vscode/
 npm-debug.log*
+
+worker
