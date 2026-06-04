@@ -18,6 +18,9 @@ importers:
       '@types/node':
         specifier: ^25.8.0
         version: 25.8.0
+      kyushu-types:
+        specifier: ^0.0.3
+        version: 0.0.3
       oxfmt:
         specifier: ^0.49.0
         version: 0.49.0
@@ -1079,6 +1082,9 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
+  kyushu-types@0.0.3:
+    resolution: {integrity: sha512-wrUZ4nM8kgx7hfNOM0rrAMKfBmO3AgJ8sqvpaEHz2C7ZIPHfR4pAB19cVlT2DHeNs0USqymIuQtoB4uelTmb7A==}
+
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -1988,6 +1994,10 @@ snapshots:
     optional: true
 
   kleur@4.1.5: {}
+
+  kyushu-types@0.0.3:
+    dependencies:
+      zod: 4.4.3
 
   magic-string@0.30.21:
     dependencies:
