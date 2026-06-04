@@ -12,6 +12,7 @@ import {
   MailchimpSendTestEmailBodySchema,
 } from "../../newsletter/mailchimp/types";
 import { TelegramBot } from "../../bot/telegram/telegram";
+import type { WorkerRequest, WorkerResponse } from "kyushu-types";
 
 @CallbackProvider
 export class TelegramCallback {
@@ -32,14 +33,34 @@ export class TelegramCallback {
     });
   }
 
-  async handle({ url: { pathname }, request }: { url: URL; request: Request }): Promise<Response> {
+  async handle({
+    url: { pathname },
+    request: { body },
+  }: {
+    url: URL;
+    request: WorkerRequest;
+  }): Promise<WorkerResponse> {
     if (pathname !== `/telegram/${this.#secret}`) {
-      return new Response("Forbidden", { status: 403 });
+      return {
+        status: 403,
+        body: "Forbidden",
+      };
     }
 
-    const updateParsed = TelegramUpdateSchema.safeParse(await request.json());
+    if (body === undefined) {
+      return { status: 400, body: "Missing body" };
+    }
+
+    if (typeof body !== "string") {
+      return { status: 400, body: "Expected string body" };
+    }
+
+    const updateParsed = TelegramUpdateSchema.safeParse(JSON.parse(body));
     if (!updateParsed.success) {
-      return new Response("Bad Request", { status: 400 });
+      return {
+        status: 400,
+        body: "Bad Request",
+      };
     }
 
     const {
@@ -48,7 +69,10 @@ export class TelegramCallback {
 
     if (callbackQuery === undefined || callbackQuery === null) {
       // The worker might be pinged by Telegram
-      return new Response("OK");
+      return {
+        status: 200,
+        body: "OK",
+      };
     }
 
     const { data, id: callbackQueryId } = callbackQuery;
@@ -56,7 +80,10 @@ export class TelegramCallback {
     const dataParsed = CallbackDataSchema.safeParse(data);
 
     if (!dataParsed.success) {
-      return new Response("Bad Request", { status: 400 });
+      return {
+        status: 400,
+        body: "Bad Request",
+      };
     }
 
     const [action, campaignId] = data.split(":");
@@ -97,10 +124,16 @@ export class TelegramCallback {
         console.error(err);
       }
 
-      return new Response(`Cannot execute action ${action}`, { status: 500 });
+      return {
+        status: 500,
+        body: `Cannot execute action ${action}`,
+      };
     }
 
-    return new Response("OK");
+    return {
+      status: 200,
+      body: "OK",
+    };
   }
 
   async #send({
