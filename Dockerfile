@@ -26,7 +26,7 @@ RUN npm install -g pnpm@$(node -e "console.log(require('./package.json').package
 
 # kyu CLI
 RUN curl -fsSL https://kyushu.dev/install | bash
-ENV PATH="/root/.cargo/bin:${PATH}"
+ENV PATH="/root/.kyu/bin:${PATH}"
 
 COPY . .
 
